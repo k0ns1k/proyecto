@@ -8,9 +8,11 @@ use App\Http\Requests\Api\Customers\IndexRequest;
 use App\Http\Requests\Api\Customers\ShowRequest;
 use App\Http\Requests\Api\Customers\StoreRequest;
 use App\Http\Requests\Api\Customers\UpdateRequest;
+use App\Mail\Customers\Created;
 use App\Models\Customer;
 use Cassandra\Index;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class CustomersController extends Controller
 {
@@ -33,6 +35,7 @@ class CustomersController extends Controller
            "tax" => $request->input("tax"),
            "email" => $request->input("email"),
         ]);
+        Mail::to($request->user())->send(new Created($customer));
         return response()->json($customer, 201);
     }
 
