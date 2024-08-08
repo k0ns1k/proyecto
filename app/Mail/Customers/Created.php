@@ -15,12 +15,13 @@ class Created extends Mailable implements ShouldQueue
     use Queueable, SerializesModels;
 
     public Customer $customer;
+
     /**
      * Create a new message instance.
      */
     public function __construct(Customer $customer)
     {
-       $this->customer = $customer;
+        $this->customer = $customer;
 
     }
 

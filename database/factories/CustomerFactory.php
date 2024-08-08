@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 /**
@@ -21,7 +20,7 @@ class CustomerFactory extends Factory
         return [
             'name' => fake()->company(),
             'email' => fake()->companyEmail(),
-            "tax" => Str::random(10),
+            'tax' => Str::random(10),
         ];
     }
 }

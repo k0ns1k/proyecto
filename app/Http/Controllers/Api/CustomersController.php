@@ -10,8 +10,6 @@ use App\Http\Requests\Api\Customers\StoreRequest;
 use App\Http\Requests\Api\Customers\UpdateRequest;
 use App\Mail\Customers\Created;
 use App\Models\Customer;
-use Cassandra\Index;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
 class CustomersController extends Controller
@@ -22,6 +20,7 @@ class CustomersController extends Controller
     public function index(IndexRequest $request)
     {
         $customers = Customer::all();
+
         return response()->json($customers);
     }
 
@@ -31,11 +30,12 @@ class CustomersController extends Controller
     public function store(StoreRequest $request)
     {
         $customer = Customer::query()->create([
-           "name" => $request->input("name"),
-           "tax" => $request->input("tax"),
-           "email" => $request->input("email"),
+            'name' => $request->input('name'),
+            'tax' => $request->input('tax'),
+            'email' => $request->input('email'),
         ]);
         Mail::to($request->user())->send(new Created($customer));
+
         return response()->json($customer, 201);
     }
 
@@ -53,9 +53,9 @@ class CustomersController extends Controller
     public function update(UpdateRequest $request, Customer $customer)
     {
         $customer->update([
-            "name" => $request->input("name"),
-            "tax" => $request->input("tax"),
-            "email" => $request->input("email"),
+            'name' => $request->input('name'),
+            'tax' => $request->input('tax'),
+            'email' => $request->input('email'),
         ]);
     }
 
@@ -65,6 +65,7 @@ class CustomersController extends Controller
     public function destroy(DestroyRequest $request, Customer $customer)
     {
         $customer->delete();
+
         return response()->json();
     }
 }

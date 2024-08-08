@@ -23,16 +23,16 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name" => "required|string",
-            "tax" => [
-                "required",
-                "string",
-                Rule::unique("customers", "tax")->ignore($this->route("customer")->id)
+            'name' => 'required|string',
+            'tax' => [
+                'required',
+                'string',
+                Rule::unique('customers', 'tax')->ignore($this->route('customer')->id),
             ],
-            "email" => [
-                "required",
-                "email",
-                Rule::unique("customers", "email")->ignore($this->route("customer")->id)
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('customers', 'email')->ignore($this->route('customer')->id),
             ],
         ];
     }
