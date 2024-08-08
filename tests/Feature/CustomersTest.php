@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use App\Models\Customer;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class CustomersTest extends TestCase
@@ -18,7 +17,7 @@ class CustomersTest extends TestCase
 
         $response = $this
             ->actingAs($user)
-            ->json("GET", "/api/customers");
+            ->json('GET', '/api/customers');
 
         $response->assertStatus(200);
     }
@@ -29,10 +28,10 @@ class CustomersTest extends TestCase
 
         $response = $this
             ->actingAs($user)
-            ->json("POST", "/api/customers",[
-                "name" => "Company Ltd",
-                "tax" => "11.111.111-5",
-                "email" => "contact@company.com",
+            ->json('POST', '/api/customers', [
+                'name' => 'Company Ltd',
+                'tax' => '11.111.111-5',
+                'email' => 'contact@company.com',
             ]);
 
         $response->assertStatus(201);
@@ -45,7 +44,7 @@ class CustomersTest extends TestCase
 
         $response = $this
             ->actingAs($user)
-            ->json("GET", "/api/customers/{$customer->id}");
+            ->json('GET', "/api/customers/{$customer->id}");
 
         $response->assertStatus(200);
     }
@@ -57,10 +56,10 @@ class CustomersTest extends TestCase
 
         $response = $this
             ->actingAs($user)
-            ->json("PUT", "/api/customers/{$customer->id}",[
-                "name" => $customer->name,
-                "tax" => "11.111.111-5",
-                "email" => $customer->email,
+            ->json('PUT', "/api/customers/{$customer->id}", [
+                'name' => $customer->name,
+                'tax' => '11.111.111-5',
+                'email' => $customer->email,
             ]);
 
         $response->assertStatus(200);
@@ -73,7 +72,7 @@ class CustomersTest extends TestCase
 
         $response = $this
             ->actingAs($user)
-            ->json("DELETE", "/api/customers/{$customer->id}");
+            ->json('DELETE', "/api/customers/{$customer->id}");
 
         $response->assertStatus(200);
     }
