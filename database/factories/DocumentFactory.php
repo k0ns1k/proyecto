@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Customer>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Document>
  */
-class CustomerFactory extends Factory
+class DocumentFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,9 +18,10 @@ class CustomerFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->company(),
-            'email' => fake()->companyEmail(),
-            'tax' => Str::random(10),
+            'name' => Str::random(10),
+            'path' => fake()->filePath(),
+            'mime' => fake()->mimeType(),
+            'size' => fake()->numberBetween(300, 600),
         ];
     }
 }
