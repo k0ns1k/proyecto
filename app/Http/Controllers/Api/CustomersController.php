@@ -19,7 +19,7 @@ class CustomersController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $customers = Customer::all();
+        $customers = Customer::query()->paginate();
 
         return response()->json($customers);
     }
@@ -57,6 +57,8 @@ class CustomersController extends Controller
             'tax' => $request->input('tax'),
             'email' => $request->input('email'),
         ]);
+
+        return response()->json();
     }
 
     /**

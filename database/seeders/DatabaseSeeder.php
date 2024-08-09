@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Customer;
+use App\Models\Document;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -19,5 +21,18 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+
+        $customers = Customer::factory(10)
+            ->create();
+        foreach ($customers as $customer) {
+            for ($i = 0; $i < 10; $i++) {
+                $document = Document::factory()
+                    ->make();
+                $customer
+                    ->documents()
+                    ->create($document->toArray());
+            }
+
+        }
     }
 }
