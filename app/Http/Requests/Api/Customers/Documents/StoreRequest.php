@@ -23,7 +23,7 @@ class StoreRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'file' => 'required|file|size:10240',
+            'file' => 'required|file|max:10240',
         ];
     }
 }
