@@ -7,6 +7,7 @@ use App\Models\Document;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class CustomersDocumentsTest extends TestCase
@@ -161,16 +162,18 @@ class CustomersDocumentsTest extends TestCase
             'customer_id' => $customer->id,
         ]);
 
+        $name = Str::random();
+
         $response = $this
             ->actingAs($user)
             ->json('PUT', "/api/customers/{$customer->id}/documents/{$document->id}", [
-                'name' => 'Factura',
+                'name' => $name,
             ]);
 
         $response->assertStatus(200);
         $this->assertDatabaseHas(Document::class, [
             'id' => $document->id,
-            'name' => 'Factura',
+            'name' => $name,
         ]);
     }
 }
