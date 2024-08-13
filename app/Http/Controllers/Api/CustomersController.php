@@ -53,9 +53,9 @@ class CustomersController extends Controller
     public function update(UpdateRequest $request, Customer $customer)
     {
         $customer->update([
-            'name' => $request->input('name'),
-            'tax' => $request->input('tax'),
-            'email' => $request->input('email'),
+            'name' => $request->input('name', $customer->name),
+            'tax' => $request->input('tax', $customer->tax),
+            'email' => $request->input('email', $customer->email),
         ]);
 
         return response()->json();
