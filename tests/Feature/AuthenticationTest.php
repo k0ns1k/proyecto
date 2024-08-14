@@ -72,7 +72,6 @@ class AuthenticationTest extends TestCase
         $response = $this->json('POST', '/api/attempt', [
             'email' => $user->email,
             'password' => $password,
-
         ]);
 
         $response->assertCreated()
@@ -94,7 +93,6 @@ class AuthenticationTest extends TestCase
         $response = $this->json('POST', '/api/attempt', [
             'email' => 'test@company.com',
             'password' => $password,
-
         ]);
 
         $response->assertUnprocessable();
