@@ -33,6 +33,7 @@ class AttemptController extends Controller
             'token_type' => 'Bearer',
             'expires_at' => $token->accessToken->expires_at,
 
-        ]);
+        ], 201);
+
     }
 }
