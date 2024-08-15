@@ -16,9 +16,11 @@
         "@tailwindcss/forms": "^0.5.7",
         "@vitejs/plugin-vue": "^5.1.2",
         "autoprefixer": "^10.4.20",
+        "pinia": "^2.2.2",
         "postcss": "^8.4.41",
         "tailwindcss": "^3.4.10",
         "typescript": "^5.5.4",
-        "vue": "^3.4.37"
+        "vue": "^3.4.37",
+        "vue-router": "^4.4.3"
     }
 }
