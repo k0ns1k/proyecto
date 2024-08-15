@@ -1,5 +1,7 @@
 <template>
     <div>
+        <Notifications />
+
         <ResponsiveSidebar :teams="teams" />
 
         <StaticSidebar :teams="teams" />
@@ -47,6 +49,7 @@ import UserDropdown from "@/components/Shared/UserDropdown.vue";
 import NotificationDropdown from "@/components/Shared/NotificationDropdown.vue";
 import Search from "@/components/Shared/Search.vue";
 import { useNavigation } from "@/stores/navigation.ts";
+import Notifications from "@/components/Shared/Notifications.vue";
 
 const teams = [
     { id: 1, name: 'Heroicons', href: '#', initial: 'H', current: false },

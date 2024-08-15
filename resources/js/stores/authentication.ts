@@ -2,6 +2,8 @@ import { defineStore } from "pinia";
 import { ref, computed } from "vue";
 import { useLocalStorage } from "@vueuse/core";
 import { useForm } from "laravel-precognition-vue";
+import { useNotifications } from "@/stores/notifications.ts";
+import { useRouter } from "vue-router";
 
 interface Token {
     access_token: String
@@ -9,6 +11,9 @@ interface Token {
     expires_at: String
 }
 export  const useAuthentication = defineStore("authentication", () => {
+    const notifications = useNotifications();
+    const router = useRouter();
+
     const token = ref(useLocalStorage("authentication.token", {
         access_token: "",
         token_type: "",
@@ -26,7 +31,20 @@ export  const useAuthentication = defineStore("authentication", () => {
         try {
             const response = await attempt.submit() as any;
             token.value = response.data;
-        } catch (e) {
+            notifications.push({
+               type: 'success',
+               tittle: 'Welcome back',
+               body: 'The authentication has been successfully',
+            });
+            await router.replace({
+                name: "Dashboard"
+            });
+        } catch (e: any) {
+            notifications.push({
+                type: 'error',
+                tittle: 'Something went wrong',
+                body: e.response.data.message,
+            });
             console.error(e);
         }
     }
