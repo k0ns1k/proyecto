@@ -49,7 +49,7 @@ router.beforeEach((to, from, next) => {
         if(!authentication.is_authenticated && to.name !== "Verify"){
             next({name: 'Login'});
         } else {
-            if(to.name === "Login" && authentication.is_authenticated){
+            if(guest_routes.includes(to.name as string) && authentication.is_authenticated){
                 next({name: "Dashboard"});
             } else {
                 next();

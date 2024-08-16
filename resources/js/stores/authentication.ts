@@ -49,10 +49,41 @@ export  const useAuthentication = defineStore("authentication", () => {
         }
     }
 
+
+    const register = useForm("post","/api/register", {
+        name:"",
+        email:"",
+        password:"",
+        password_confirmation:"",
+    });
+
+    const do_register = async () => {
+        try {
+            await register.submit();
+            notifications.push({
+                type: 'success',
+                tittle: 'Verification required',
+                body: 'We recently sent you an email',
+            });
+            await router.replace({
+                name: "Login"
+            });
+        } catch (e: any) {
+            notifications.push({
+                type: 'error',
+                tittle: 'Something went wrong',
+                body: e.response.data.message,
+            });
+            console.error(e);
+        }
+    }
+
     return {
         token,
         is_authenticated,
         attempt,
         do_attempt,
+        register,
+        do_register,
     }
 });
