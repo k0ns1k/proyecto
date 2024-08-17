@@ -13,9 +13,14 @@ const routes = [
         component: () => import("./pages/auth/Register.vue")
     },
     {
-        name: "Revoke",
-        path: "/auth/revoke",
-        component: () => import("./pages/auth/Revoke.vue")
+        name: "Recovery",
+        path: "/auth/recovery",
+        component: () => import("./pages/auth/Recovery.vue")
+    },
+    {
+        name: "ChangePassword",
+        path: "/auth/change-password/:token",
+        component: () => import("./pages/auth/ChangePassword.vue")
     },
     {
         name: "Verify",
