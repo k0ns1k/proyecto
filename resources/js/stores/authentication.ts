@@ -88,7 +88,7 @@ export  const useAuthentication = defineStore("authentication", () => {
             name: "Login"
         });
     }
-    
+
     return {
         token,
         is_authenticated,
