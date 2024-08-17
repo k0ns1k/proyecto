@@ -2,12 +2,15 @@
     <div>
         <Notifications />
 
-        <ResponsiveSidebar :teams="teams" />
+        <ResponsiveSidebar v-if="authentication.is_authenticated"
+                           :teams="teams" />
 
-        <StaticSidebar :teams="teams" />
+        <StaticSidebar v-if="authentication.is_authenticated"
+                       :teams="teams" />
 
-        <div class="lg:pl-72">
-            <div class="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-gray-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
+        <div :class="[authentication.is_authenticated ? 'lg:pl-72' : '' ]">
+            <div v-if="authentication.is_authenticated"
+                 class="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-gray-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
                 <button type="button" class="-m-2.5 p-2.5 text-gray-700 lg:hidden" @click="navigation.open">
                     <span class="sr-only">Open sidebar</span>
                     <Bars3Icon class="h-6 w-6" aria-hidden="true" />
@@ -50,6 +53,7 @@ import NotificationDropdown from "@/components/Shared/NotificationDropdown.vue";
 import Search from "@/components/Shared/Search.vue";
 import { useNavigation } from "@/stores/navigation.ts";
 import Notifications from "@/components/Shared/Notifications.vue";
+import { useAuthentication } from "@/stores/authentication.ts";
 
 const teams = [
     { id: 1, name: 'Heroicons', href: '#', initial: 'H', current: false },
@@ -58,4 +62,6 @@ const teams = [
 ];
 
 const navigation = useNavigation();
+const authentication = useAuthentication();
+
 </script>
