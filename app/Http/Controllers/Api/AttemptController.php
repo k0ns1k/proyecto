@@ -26,6 +26,12 @@ class AttemptController extends Controller
             ]);
         }
 
+        if (! $user->email_verified_at) {
+            throw ValidationException::withMessages([
+                'email' => ['The provided email isn\'t verified.'],
+            ]);
+        }
+
         $token = $user->createToken('Personal Access Token', ['*'], now()->addYear());
 
         return response()->json([
