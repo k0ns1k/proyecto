@@ -18,14 +18,12 @@ Route::get('/user', function (Request $request) {
 Route::apiResource('/customers', CustomersController::class)
     ->middleware([HandlePrecognitiveRequests::class, 'auth:sanctum']);
 
-
 Route::apiResource('/customers/{customer}/documents', CustomersDocumentsController::class)
     ->middleware([HandlePrecognitiveRequests::class, 'auth:sanctum']);
 
 Route::get('/customers/{customer}/documents/{document}/download', [
     CustomersDocumentsController::class, 'download',
-])->middleware([HandlePrecognitiveRequests::class,'auth:sanctum']);
-
+])->middleware([HandlePrecognitiveRequests::class, 'auth:sanctum']);
 
 Route::post('/register', RegisterController::class)
     ->middleware([HandlePrecognitiveRequests::class]);

@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
-
 class RecoveryController extends Controller
 {
     /**
@@ -18,14 +17,14 @@ class RecoveryController extends Controller
      */
     public function __invoke(RecoveryRequest $request)
     {
-            $user = User::query()
-                ->where('email', $request->input('email'))
-                ->first();
-            $user->update([
-               'recovery_token' => Str::random(32),
-            ]);
-            Mail::to($user)->send(new Recovery($user));
+        $user = User::query()
+            ->where('email', $request->input('email'))
+            ->first();
+        $user->update([
+            'recovery_token' => Str::random(32),
+        ]);
+        Mail::to($user)->send(new Recovery($user));
 
-            return response()->json();
+        return response()->json();
     }
 }

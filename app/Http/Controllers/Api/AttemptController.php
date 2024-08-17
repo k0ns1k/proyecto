@@ -26,7 +26,7 @@ class AttemptController extends Controller
             ]);
         }
 
-        if(!$user->email_verified_at) {
+        if (! $user->email_verified_at) {
             throw ValidationException::withMessages([
                 'email' => ['The provided email isn\'t verified.'],
             ]);
