@@ -31,13 +31,13 @@ export  const useAuthentication = defineStore("authentication", () => {
         try {
             const response = await attempt.submit() as any;
             token.value = response.data;
+            await router.replace({
+                name: "Dashboard"
+            });
             notifications.push({
                type: 'success',
                tittle: 'Welcome back',
                body: 'The authentication has been successfully',
-            });
-            await router.replace({
-                name: "Dashboard"
             });
         } catch (e: any) {
             notifications.push({
@@ -60,13 +60,13 @@ export  const useAuthentication = defineStore("authentication", () => {
     const do_register = async () => {
         try {
             await register.submit();
+            await router.replace({
+                name: "Login"
+            });
             notifications.push({
                 type: 'success',
                 tittle: 'Verification required',
                 body: 'We recently sent you an email',
-            });
-            await router.replace({
-                name: "Login"
             });
         } catch (e: any) {
             notifications.push({
@@ -78,6 +78,17 @@ export  const useAuthentication = defineStore("authentication", () => {
         }
     }
 
+    const sign_out = async () => {
+        token.value = {
+            access_token: "",
+            token_type: "",
+            expires_at: "",
+        } as Token
+        await router.replace({
+            name: "Login"
+        });
+    }
+    
     return {
         token,
         is_authenticated,
@@ -85,5 +96,6 @@ export  const useAuthentication = defineStore("authentication", () => {
         do_attempt,
         register,
         do_register,
+        sign_out,
     }
 });

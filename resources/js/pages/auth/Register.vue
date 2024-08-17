@@ -75,8 +75,16 @@
 </template>
 
 <script lang="ts" setup>
+import { onUnmounted } from "vue";
 import { useAuthentication } from "@/stores/authentication.ts";
 
 const authentication = useAuthentication();
+
+onUnmounted(() => {
+    authentication.register.reset();
+    authentication.register.forgetError("name");
+    authentication.register.forgetError("email");
+    authentication.register.forgetError("password");
+});
 
 </script>

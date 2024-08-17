@@ -13,6 +13,11 @@
                 <MenuItem v-for="item in userNavigation" :key="item.name" v-slot="{ active }">
                     <a :href="item.href" :class="[active ? 'bg-gray-50' : '', 'block px-3 py-1 text-sm leading-6 text-gray-900']">{{ item.name }}</a>
                 </MenuItem>
+                <MenuItem v-slot="{ active }">
+                    <button type="button"
+                            @click="authentication.sign_out"
+                            :class="[active ? 'bg-gray-50' : '', 'block px-3 py-1 text-sm leading-6 text-gray-900']">Sign out</button>
+                </MenuItem>
             </MenuItems>
         </transition>
     </Menu>
@@ -21,9 +26,11 @@
 <script lang="ts" setup>
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue";
 import { ChevronDownIcon } from "@heroicons/vue/20/solid";
+import { useAuthentication } from "@/stores/authentication.ts";
+
+const authentication = useAuthentication();
 
 const userNavigation = [
     { name: 'Your profile', href: '#' },
-    { name: 'Sign out', href: '#' },
 ];
 </script>

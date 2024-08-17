@@ -50,8 +50,14 @@
 </template>
 
 <script lang="ts" setup>
+import { onUnmounted } from "vue";
 import { useAuthentication } from "@/stores/authentication.ts";
 
 const authentication = useAuthentication();
 
+onUnmounted( () => {
+   authentication.attempt.reset();
+   authentication.attempt.forgetError("email");
+   authentication.attempt.forgetError("password");
+});
 </script>
