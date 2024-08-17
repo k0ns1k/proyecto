@@ -77,7 +77,57 @@ export  const useAuthentication = defineStore("authentication", () => {
             console.error(e);
         }
     }
+    const recovery = useForm("post","/api/recovery", {
+        email:"",
+    });
 
+    const do_recovery = async () => {
+        try {
+            await recovery.submit();
+            await router.replace({
+                name: "Login"
+            });
+            notifications.push({
+                type: 'success',
+                tittle: 'Check your email',
+                body: 'We recently sent you an email',
+            });
+        } catch (e: any) {
+            notifications.push({
+                type: 'error',
+                tittle: 'Something went wrong',
+                body: e.response.data.message,
+            });
+            console.error(e);
+        }
+    }
+
+    const change_password = useForm("post","/api/change-password", {
+        recovery_token:"",
+        password:"",
+        password_confirmation:"",
+    });
+
+    const do_change_password = async () => {
+        try {
+            await change_password.submit();
+            await router.replace({
+                name: "Login"
+            });
+            notifications.push({
+                type: 'success',
+                tittle: 'Password was changed',
+                body: 'Now you can sign in',
+            });
+        } catch (e: any) {
+            notifications.push({
+                type: 'error',
+                tittle: 'Something went wrong',
+                body: e.response.data.message,
+            });
+            console.error(e);
+        }
+    }
     const sign_out = async () => {
         token.value = {
             access_token: "",
@@ -96,6 +146,10 @@ export  const useAuthentication = defineStore("authentication", () => {
         do_attempt,
         register,
         do_register,
+        recovery,
+        do_recovery,
+        change_password,
+        do_change_password,
         sign_out,
     }
 });

@@ -42,6 +42,8 @@ const router = createRouter({
 const guest_routes = [
     "Login",
     "Register",
+    "Recovery",
+    "ChangePassword",
 ];
 
 //@ts-ignore
