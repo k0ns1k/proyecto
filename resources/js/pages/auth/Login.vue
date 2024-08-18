@@ -17,7 +17,6 @@
                                class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6" />
                     </div>
                 </div>
-
                 <div>
                     <div class="flex items-center justify-between">
                         <label for="password"
@@ -48,7 +47,6 @@
                     <router-link to="/auth/register" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Register</router-link>
                 </p>
             </form>
-
         </div>
     </div>
 </template>

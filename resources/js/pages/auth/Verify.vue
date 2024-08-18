@@ -37,7 +37,6 @@ onMounted(async () => {
             body: e.response.data.message,
         });
     }
-
 });
 </script>
 
