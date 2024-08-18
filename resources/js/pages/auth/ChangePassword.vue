@@ -33,7 +33,6 @@
                                class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6" />
                     </div>
                 </div>
-
                 <div>
                     <button :disabled="authentication.change_password.processing"
                             class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Confirm</button>
@@ -44,13 +43,12 @@
                     <router-link to="/auth/login" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Sign in</router-link>
                 </p>
             </form>
-
         </div>
     </div>
 </template>
 
 <script lang="ts" setup>
-import {onMounted, onUnmounted} from "vue";
+import { onMounted, onUnmounted } from "vue";
 import { useAuthentication } from "@/stores/authentication.ts";
 import { useRoute } from "vue-router";
 
@@ -66,5 +64,4 @@ onUnmounted(() => {
     authentication.change_password.reset();
     authentication.change_password.forgetError("password");
 });
-
 </script>

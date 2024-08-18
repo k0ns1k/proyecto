@@ -22,6 +22,5 @@ class ChangePasswordController extends Controller
         ]);
 
         return response()->json();
-
     }
 }

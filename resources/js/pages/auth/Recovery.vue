@@ -42,5 +42,4 @@ onUnmounted(() => {
     authentication.recovery.reset();
     authentication.recovery.forgetError("email");
 });
-
 </script>
