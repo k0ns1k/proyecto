@@ -27,7 +27,6 @@
                     <router-link to="/auth/login" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Sign in</router-link>
                 </p>
             </form>
-
         </div>
     </div>
 </template>
