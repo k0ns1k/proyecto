@@ -99,7 +99,7 @@ class AuthenticationTest extends TestCase
         $response->assertUnprocessable();
 
         $user = User::factory()->unverified()->create([
-            "password" => $password,
+            'password' => $password,
         ]);
 
         $response = $this->json('POST', '/api/attempt', [
@@ -148,11 +148,10 @@ class AuthenticationTest extends TestCase
             100,
             'image/jpeg');
 
-
         $response = $this->actingAs($user)
             ->json('POST', '/api/profile', [
-            'photo' => $photo,
-        ]);
+                'photo' => $photo,
+            ]);
 
         $response->assertOk();
 

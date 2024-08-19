@@ -27,6 +27,4 @@ class RecoveryController extends Controller
 
         return response()->json();
     }
-
-
 }
