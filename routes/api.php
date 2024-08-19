@@ -4,8 +4,10 @@ use App\Http\Controllers\Api\AttemptController;
 use App\Http\Controllers\Api\ChangePasswordController;
 use App\Http\Controllers\Api\CustomersController;
 use App\Http\Controllers\Api\CustomersDocumentsController;
+use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\RecoveryController;
 use App\Http\Controllers\Api\RegisterController;
+use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\VerifyController;
 use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 use Illuminate\Http\Request;
@@ -39,3 +41,9 @@ Route::post('/recovery', RecoveryController::class)
 
 Route::post('/change-password', ChangePasswordController::class)
     ->middleware([HandlePrecognitiveRequests::class]);
+
+Route::post('/profile', ProfileController::class)
+    ->middleware([HandlePrecognitiveRequests::class, 'auth:sanctum']);
+
+Route::get('/users/{user}', UserController::class)
+    ->middleware([HandlePrecognitiveRequests::class, 'auth:sanctum']);

@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { ref, computed } from "vue";
 import { useLocalStorage } from "@vueuse/core";
-import { useForm } from "laravel-precognition-vue";
+import { client, useForm } from "laravel-precognition-vue";
 import { useNotifications } from "@/stores/notifications.ts";
 import { useRouter } from "vue-router";
 
@@ -10,15 +10,26 @@ interface Token {
     token_type: String
     expires_at: String
 }
+
+export interface  User {
+    id: Number
+    name: String
+    email: String
+    photo: String|null
+
+}
 export  const useAuthentication = defineStore("authentication", () => {
     const notifications = useNotifications();
     const router = useRouter();
+    const loaded = ref(false);
 
     const token = ref(useLocalStorage("authentication.token", {
         access_token: "",
         token_type: "",
         expires_at: "",
     } as Token));
+
+    const user = ref({ } as User);
 
     const is_authenticated = computed(() => token.value.access_token != "");
 
@@ -31,6 +42,8 @@ export  const useAuthentication = defineStore("authentication", () => {
         try {
             const response = await attempt.submit() as any;
             token.value = response.data;
+            client.axios().defaults.headers.common['Authorization'] = `Bearer ${token.value.access_token}`;
+            await get_profile();
             await router.replace({
                 name: "Dashboard"
             });
@@ -128,6 +141,31 @@ export  const useAuthentication = defineStore("authentication", () => {
             console.error(e);
         }
     }
+
+    const change_profile = useForm("post","/api/profile", {
+        photo: new File([], ""),
+    });
+
+    const do_change_profile = async () => {
+        try {
+            await change_profile.submit();
+            notifications.push({
+                type: 'success',
+                tittle: 'Profile was updated',
+                body: 'Check how it looks like',
+            });
+            await  get_profile();
+        } catch (e: any) {
+            notifications.push({
+                type: 'error',
+                tittle: 'Something went wrong',
+                body: e.response.data.message,
+            });
+            console.error(e);
+        }
+    }
+
+
     const sign_out = async () => {
         token.value = {
             access_token: "",
@@ -139,8 +177,16 @@ export  const useAuthentication = defineStore("authentication", () => {
         });
     }
 
+    const profile = useForm("get", "/api/user", {});
+    const get_profile = async () => {
+        const response = await profile.submit() as any;
+        user.value = response.data;
+    };
+
     return {
+        loaded,
         token,
+        user,
         is_authenticated,
         attempt,
         do_attempt,
@@ -150,6 +196,9 @@ export  const useAuthentication = defineStore("authentication", () => {
         do_recovery,
         change_password,
         do_change_password,
+        change_profile,
+        do_change_profile,
         sign_out,
+        get_profile,
     }
 });

@@ -1,5 +1,5 @@
 import  { createRouter, createWebHistory} from "vue-router";
-import {useAuthentication} from "@/stores/authentication.ts";
+import { useAuthentication } from "@/stores/authentication.ts";
 
 const routes = [
     {
@@ -31,7 +31,17 @@ const routes = [
         name: "Dashboard",
         path: "/auth/dashboard",
         component: () => import("./pages/auth/Dashboard.vue")
-    }
+    },
+    {
+        name: "ChangeProfile",
+        path: "/settings/profile",
+        component: () => import("./pages/settings/Profile.vue")
+    },
+    {
+        name: "Profile",
+        path: "/profile/:id",
+        component: () => import("./pages/Profile.vue")
+    },
 
 ];
 const router = createRouter({

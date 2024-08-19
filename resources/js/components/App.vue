@@ -19,7 +19,7 @@
                 <div class="h-6 w-px bg-gray-900/10 lg:hidden" aria-hidden="true" />
                 <div class="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
                     <Search />
-                    <div class="flex items-center gap-x-4 lg:gap-x-6">
+                    <div v-if="authentication.loaded" class="flex items-center gap-x-4 lg:gap-x-6">
                         <NotificationDropdown />
                         <!-- Separator -->
                         <div class="hidden lg:block lg:h-6 lg:w-px lg:bg-gray-900/10" aria-hidden="true" />
@@ -28,14 +28,12 @@
                 </div>
             </div>
 
-            <main class="py-10">
-                <div class="px-4 sm:px-6 lg:px-8">
+            <main>
                     <router-view v-slot="{ Component, route }">
                         <div :key="route.name">
                             <Component :is="Component" />
                         </div>
                     </router-view>
-                </div>
             </main>
         </div>
     </div>
@@ -54,6 +52,8 @@ import Search from "@/components/Shared/Search.vue";
 import { useNavigation } from "@/stores/navigation.ts";
 import Notifications from "@/components/Shared/Notifications.vue";
 import { useAuthentication } from "@/stores/authentication.ts";
+import { onMounted } from "vue";
+import { client } from "laravel-precognition-vue";
 
 const teams = [
     { id: 1, name: 'Heroicons', href: '#', initial: 'H', current: false },
@@ -64,4 +64,13 @@ const teams = [
 const navigation = useNavigation();
 const authentication = useAuthentication();
 
+onMounted(async () => {
+
+    if(authentication.is_authenticated) {
+        client.axios().defaults.headers.common['Authorization'] = `Bearer ${authentication.token.access_token}`;
+        await authentication.get_profile();
+    }
+    authentication.loaded = true;
+
+});
 </script>
