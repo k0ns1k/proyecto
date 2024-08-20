@@ -3,13 +3,13 @@ import { ref } from "vue";
 import { v4 as uuid } from "uuid";
 
 interface Notification {
-    tittle: String
-    body: String
-    type: String
+    tittle: string
+    body: string
+    type: string
 }
 
 interface StoredNotification extends Notification {
-    id: String
+    id: string
     visible: boolean
     create_at: Date
 }

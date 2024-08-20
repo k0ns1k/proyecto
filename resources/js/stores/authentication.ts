@@ -6,16 +6,16 @@ import { useNotifications } from "@/stores/notifications.ts";
 import { useRouter } from "vue-router";
 
 interface Token {
-    access_token: String
-    token_type: String
-    expires_at: String
+    access_token: string
+    token_type: string
+    expires_at: string
 }
 
 export interface  User {
-    id: Number
-    name: String
-    email: String
-    photo: String|null
+    id: number
+    name: string
+    email: string
+    photo: string|null
 
 }
 export  const useAuthentication = defineStore("authentication", () => {

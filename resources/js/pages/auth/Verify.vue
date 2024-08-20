@@ -1,5 +1,5 @@
 <template>
-
+  <div />
 </template>
 
 <script lang="ts" setup>
@@ -19,7 +19,8 @@ const verification = useForm("post","/api/verify", {
 });
 
 onMounted(async () => {
-    verification.verification_token =route.params.token as string;
+    //@ts-ignore
+    verification.verification_token =route.params.token;
     await router.replace({
         name: "Login"
     });
@@ -30,10 +31,11 @@ onMounted(async () => {
             tittle: 'Verification success',
             body: 'Your email has been verified',
         });
-    } catch (e : any) {
+    } catch (e) {
         notifications.push({
             type: 'error',
             tittle: 'Something went wrong',
+            //@ts-ignore
             body: e.response.data.message,
         });
     }
