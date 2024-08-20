@@ -4,7 +4,8 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build",
-        "lint": "eslint resources/js --fix"
+        "lint": "eslint resources/js --fix",
+        "format": "prettier --write \"resources/**/*.vue\" \"resources/**/*.ts\""
     },
     "devDependencies": {
         "@eslint/js": "^9.9.0",
@@ -25,9 +26,12 @@
         "@vitejs/plugin-vue": "^5.1.2",
         "@vueuse/core": "^10.11.1",
         "autoprefixer": "^10.4.20",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-prettier": "^5.2.1",
         "laravel-precognition-vue": "^0.5.6",
         "pinia": "^2.2.2",
         "postcss": "^8.4.41",
+        "prettier": "^3.3.3",
         "tailwindcss": "^3.4.10",
         "typescript": "^5.5.4",
         "uuid": "^10.0.0",
