@@ -1,17 +1,17 @@
-import  { defineStore } from "pinia";
+import { defineStore } from "pinia";
 import { ref } from "vue";
 import { v4 as uuid } from "uuid";
 
 interface Notification {
-    tittle: String
-    body: String
-    type: String
+    tittle: string;
+    body: string;
+    type: string;
 }
 
 interface StoredNotification extends Notification {
-    id: String
-    visible: boolean
-    create_at: Date
+    id: string;
+    visible: boolean;
+    create_at: Date;
 }
 export const useNotifications = defineStore("notifications", () => {
     const events = ref<StoredNotification[]>([]);
@@ -22,16 +22,15 @@ export const useNotifications = defineStore("notifications", () => {
             id: id,
             visible: true,
             create_at: new Date(),
-            ...notification
+            ...notification,
         });
         setTimeout(() => {
-            const index = events.value
-                .findIndex((item) => item.id === id)
+            const index = events.value.findIndex((item) => item.id === id);
             events.value[index].visible = false;
-        },5000);
-    }
+        }, 5000);
+    };
     return {
         events,
         push,
-    }
+    };
 });

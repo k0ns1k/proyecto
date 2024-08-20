@@ -6,143 +6,144 @@ import { useNotifications } from "@/stores/notifications.ts";
 import { useRouter } from "vue-router";
 
 interface Token {
-    access_token: String
-    token_type: String
-    expires_at: String
+    access_token: string;
+    token_type: string;
+    expires_at: string;
 }
 
-export interface  User {
-    id: Number
-    name: String
-    email: String
-    photo: String|null
-
+export interface User {
+    id: number;
+    name: string;
+    email: string;
+    photo: string | null;
 }
-export  const useAuthentication = defineStore("authentication", () => {
+export const useAuthentication = defineStore("authentication", () => {
     const notifications = useNotifications();
     const router = useRouter();
     const loaded = ref(false);
 
-    const token = ref(useLocalStorage("authentication.token", {
-        access_token: "",
-        token_type: "",
-        expires_at: "",
-    } as Token));
+    const token = ref(
+        useLocalStorage("authentication.token", {
+            access_token: "",
+            token_type: "",
+            expires_at: "",
+        } as Token),
+    );
 
-    const user = ref({ } as User);
+    const user = ref({} as User);
 
     const is_authenticated = computed(() => token.value.access_token != "");
 
-    const attempt = useForm("post","/api/attempt", {
-        email:"",
-        password:"",
+    const attempt = useForm("post", "/api/attempt", {
+        email: "",
+        password: "",
     });
 
     const do_attempt = async () => {
         try {
-            const response = await attempt.submit() as any;
+            const response = (await attempt.submit()) as any;
             token.value = response.data;
-            client.axios().defaults.headers.common['Authorization'] = `Bearer ${token.value.access_token}`;
+            client.axios().defaults.headers.common["Authorization"] =
+                `Bearer ${token.value.access_token}`;
             await get_profile();
             await router.replace({
-                name: "Dashboard"
+                name: "Dashboard",
             });
             notifications.push({
-               type: 'success',
-               tittle: 'Welcome back',
-               body: 'The authentication has been successfully',
+                type: "success",
+                tittle: "Welcome back",
+                body: "The authentication has been successfully",
             });
         } catch (e: any) {
             notifications.push({
-                type: 'error',
-                tittle: 'Something went wrong',
+                type: "error",
+                tittle: "Something went wrong",
                 body: e.response.data.message,
             });
             console.error(e);
         }
-    }
+    };
 
-
-    const register = useForm("post","/api/register", {
-        name:"",
-        email:"",
-        password:"",
-        password_confirmation:"",
+    const register = useForm("post", "/api/register", {
+        name: "",
+        email: "",
+        password: "",
+        password_confirmation: "",
     });
 
     const do_register = async () => {
         try {
             await register.submit();
             await router.replace({
-                name: "Login"
+                name: "Login",
             });
             notifications.push({
-                type: 'success',
-                tittle: 'Verification required',
-                body: 'We recently sent you an email',
+                type: "success",
+                tittle: "Verification required",
+                body: "We recently sent you an email",
             });
         } catch (e: any) {
             notifications.push({
-                type: 'error',
-                tittle: 'Something went wrong',
+                type: "error",
+                tittle: "Something went wrong",
                 body: e.response.data.message,
             });
             console.error(e);
         }
-    }
-    const recovery = useForm("post","/api/recovery", {
-        email:"",
+    };
+    const recovery = useForm("post", "/api/recovery", {
+        email: "",
     });
 
     const do_recovery = async () => {
         try {
             await recovery.submit();
             await router.replace({
-                name: "Login"
+                name: "Login",
             });
             notifications.push({
-                type: 'success',
-                tittle: 'Check your email',
-                body: 'We recently sent you an email',
+                type: "success",
+                tittle: "Check your email",
+                body: "We recently sent you an email",
             });
         } catch (e: any) {
             notifications.push({
-                type: 'error',
-                tittle: 'Something went wrong',
+                type: "error",
+                tittle: "Something went wrong",
                 body: e.response.data.message,
             });
             console.error(e);
         }
-    }
+    };
 
-    const change_password = useForm("post","/api/change-password", {
-        recovery_token:"",
-        password:"",
-        password_confirmation:"",
+    const change_password = useForm("post", "/api/change-password", {
+        recovery_token: "",
+        password: "",
+        password_confirmation: "",
     });
 
     const do_change_password = async () => {
         try {
             await change_password.submit();
             await router.replace({
-                name: "Login"
+                name: "Login",
             });
             notifications.push({
-                type: 'success',
-                tittle: 'Password was changed',
-                body: 'Now you can sign in',
+                type: "success",
+                tittle: "Password was changed",
+                body: "Now you can sign in",
             });
         } catch (e: any) {
             notifications.push({
-                type: 'error',
-                tittle: 'Something went wrong',
+                type: "error",
+                tittle: "Something went wrong",
                 body: e.response.data.message,
             });
             console.error(e);
         }
-    }
+    };
 
-    const change_profile = useForm("post","/api/profile", {
+    const change_profile = useForm("post", "/api/profile", {
         photo: new File([], ""),
     });
 
@@ -150,36 +151,35 @@ export  const useAuthentication = defineStore("authentication", () => {
         try {
             await change_profile.submit();
             notifications.push({
-                type: 'success',
-                tittle: 'Profile was updated',
-                body: 'Check how it looks like',
+                type: "success",
+                tittle: "Profile was updated",
+                body: "Check how it looks like",
             });
-            await  get_profile();
+            await get_profile();
         } catch (e: any) {
             notifications.push({
-                type: 'error',
-                tittle: 'Something went wrong',
+                type: "error",
+                tittle: "Something went wrong",
                 body: e.response.data.message,
             });
             console.error(e);
         }
-    }
-
+    };
 
     const sign_out = async () => {
         token.value = {
             access_token: "",
             token_type: "",
             expires_at: "",
-        } as Token
+        } as Token;
         await router.replace({
-            name: "Login"
+            name: "Login",
         });
-    }
+    };
 
     const profile = useForm("get", "/api/user", {});
     const get_profile = async () => {
-        const response = await profile.submit() as any;
+        const response = (await profile.submit()) as any;
         user.value = response.data;
     };
 
@@ -200,5 +200,5 @@ export  const useAuthentication = defineStore("authentication", () => {
         do_change_profile,
         sign_out,
         get_profile,
-    }
+    };
 });
