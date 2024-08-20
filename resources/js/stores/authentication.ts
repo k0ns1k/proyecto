@@ -30,7 +30,11 @@ export const useAuthentication = defineStore("authentication", () => {
         } as Token),
     );
 
-    const user = ref({} as User);
+    const user = ref({
+        id: -1
+    } as User);
+
+    const has_profile = computed(() => user.value.id != -1);
 
     const is_authenticated = computed(() => token.value.access_token != "");
 
@@ -187,6 +191,7 @@ export const useAuthentication = defineStore("authentication", () => {
         loaded,
         token,
         user,
+        has_profile,
         is_authenticated,
         attempt,
         do_attempt,

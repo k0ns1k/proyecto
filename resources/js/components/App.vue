@@ -30,7 +30,7 @@
                 <div class="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
                     <Search />
                     <div
-                        v-if="authentication.loaded"
+                        v-if="authentication.has_profile"
                         class="flex items-center gap-x-4 lg:gap-x-6"
                     >
                         <NotificationDropdown />
