@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * 
- *
  * @property int $id
  * @property string $name
  * @property string $path
@@ -18,6 +16,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Customer $customer
+ *
  * @method static \Database\Factories\DocumentFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Document newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Document newQuery()
@@ -30,6 +29,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|Document wherePath($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Document whereSize($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Document whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class Document extends Model
