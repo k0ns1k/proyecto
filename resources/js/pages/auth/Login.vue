@@ -1,5 +1,5 @@
 <template>
-    <div class="mx-auto max-w-lg">
+    <div class="mx-auto max-w-lg mt-10">
         <div class="shadow-lg border rounded-lg p-6">
             <form class="space-y-6" @submit.prevent="authentication.do_attempt">
                 <div>
