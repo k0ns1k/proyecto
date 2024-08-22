@@ -3,6 +3,8 @@
 namespace Tests\Feature;
 
 use App\Console\Commands\Currencies\GetUF;
+use Illuminate\Support\Env;
+use Symfony\Component\Console\Command\Command;
 use Tests\TestCase;
 
 class GetUFTest extends TestCase
@@ -13,6 +15,11 @@ class GetUFTest extends TestCase
     public function test_example(): void
     {
         $this->artisan(GetUF::class)
-            ->assertExitCode(0);
+            ->assertExitCode(Command::SUCCESS);
+
+        Env::getRepository()->set('CMF_API_KEY', '');
+
+        $this->artisan(GetUF::class)
+            ->assertExitCode(Command::FAILURE);
     }
 }
