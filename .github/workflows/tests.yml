@@ -65,15 +65,16 @@ jobs:
       - name: Prepare Laravel Application
         env:
           DB_PORT: ${{ job.services.mysql.ports[3306] }}
+          CMF_API_KEY: ${{ secrets.CMF_API_KEY }}
         run: |
           cp .env.ci .env
           php artisan key:generate
           php artisan migrate
+          echo "CMF_API_KEY=$CMF_API_KEY" >> .env
 
       - name: Run tests
         env:
           DB_PORT: ${{ job.services.mysql.ports[3306] }}
-          CMF_API_KEY: ${{ secrets.CMF_API_KEY }}
         run: php artisan test --coverage --coverage-clover storage/coverage/coverage.xml
 
       - uses: codecov/codecov-action@v3
