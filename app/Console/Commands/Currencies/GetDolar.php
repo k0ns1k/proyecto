@@ -2,29 +2,29 @@
 
 namespace App\Console\Commands\Currencies;
 
-class GetUF extends BaseCommand
+class GetDolar extends BaseCommand
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'app:get-uf';
+    protected $signature = 'app:get-dolar';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Get today\"s UF value';
+    protected $description = 'Get today\"s Dolar value';
 
     /**
      * @var array
      */
     public $attributes = [
-        'path' => 'uf',
-        'name' => 'UFs',
-        'type' => 'UF',
+        'path' => 'dolar',
+        'name' => 'Dolares',
+        'type' => 'USD',
         'monthly' => false,
     ];
 }
