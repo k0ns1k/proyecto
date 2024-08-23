@@ -15,14 +15,14 @@ class LatestValuesController extends Controller
     public function __invoke(AuthenticatedRequest $request)
     {
         $types = [
-            "UF",
-            "UTM",
-            "USD",
-            "EUR"
+            'UF',
+            'UTM',
+            'USD',
+            'EUR',
         ];
         $items = [];
 
-        foreach ($types as $type){
+        foreach ($types as $type) {
             $items[$type] = Currency::query()
                 ->where('type', $type)
                 ->orderBy('id', 'desc')

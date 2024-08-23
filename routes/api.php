@@ -49,5 +49,5 @@ Route::post('/profile', ProfileController::class)
 Route::get('/users/{user}', UserController::class)
     ->middleware([HandlePrecognitiveRequests::class, 'auth:sanctum']);
 
-Route::get("/currencies/latest-values", LatestValuesController::class)
+Route::get('/currencies/latest-values', LatestValuesController::class)
     ->middleware([HandlePrecognitiveRequests::class, 'auth:sanctum']);
