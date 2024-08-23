@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AttemptController;
 use App\Http\Controllers\Api\ChangePasswordController;
+use App\Http\Controllers\Api\Currencies\LatestValuesController;
 use App\Http\Controllers\Api\CustomersController;
 use App\Http\Controllers\Api\CustomersDocumentsController;
 use App\Http\Controllers\Api\ProfileController;
@@ -46,4 +47,7 @@ Route::post('/profile', ProfileController::class)
     ->middleware([HandlePrecognitiveRequests::class, 'auth:sanctum']);
 
 Route::get('/users/{user}', UserController::class)
+    ->middleware([HandlePrecognitiveRequests::class, 'auth:sanctum']);
+
+Route::get('/currencies/latest-values', LatestValuesController::class)
     ->middleware([HandlePrecognitiveRequests::class, 'auth:sanctum']);
