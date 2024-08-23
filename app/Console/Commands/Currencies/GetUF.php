@@ -2,10 +2,7 @@
 
 namespace App\Console\Commands\Currencies;
 
-use App\Repositories\CMFRepository;
-use Illuminate\Console\Command;
-
-class GetUF extends Command
+class GetUF extends BaseCommand
 {
     /**
      * The name and signature of the console command.
@@ -22,24 +19,12 @@ class GetUF extends Command
     protected $description = 'Get today\"s UF value';
 
     /**
-     * Execute the console command.
+     * @var array
      */
-    public function handle()
-    {
-        $this->info('Starting GET UF command...');
-
-        $api_key = env('CMF_API_KEY', 'NONE');
-
-        if ($api_key == 'NONE' || $api_key == '') {
-            $this->error('The CMF_API_KEY is not set or is empty.');
-
-            return $this::FAILURE;
-        }
-
-        CMFRepository::fetchFinancialIndicator($api_key, 'uf', 'UFs', 'UF');
-
-        $this->info('Finished GET UF command...');
-
-        return $this::SUCCESS;
-    }
+    public $attributes = [
+        'path' => 'uf',
+        'name' => 'UFs',
+        'type' => 'UF',
+        'monthly' => false,
+    ];
 }
