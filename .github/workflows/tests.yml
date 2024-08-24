@@ -82,13 +82,15 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./storage/coverage/coverage.xml
 
-      - name: executing remote ssh commands using password
+      - name: Deploy
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
           key: ${{ secrets.DEPLOY_KEY }}
           script: |
+            cd /root
+            source .bashrc
             cd /var/www/proyecto
             git pull origin master
             composer install
