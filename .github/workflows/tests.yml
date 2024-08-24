@@ -81,3 +81,21 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./storage/coverage/coverage.xml
+
+      - name: Deploy
+        uses: appleboy/ssh-action@v1.0.3
+        if: github.ref == 'refs/heads/master'
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          script: |
+            cd /var/www/proyecto
+            git pull origin master
+            composer install
+            php artisan migrate --force
+            yarn
+            yarn build
+            cd ../
+            chown www-data:www-data proyecto -R
+            supervisorctl restart all
