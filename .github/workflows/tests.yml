@@ -81,3 +81,11 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./storage/coverage/coverage.xml
+
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          script: whoami
