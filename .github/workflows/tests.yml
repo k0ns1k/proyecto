@@ -89,15 +89,13 @@ jobs:
           username: ${{ secrets.DEPLOY_USER }}
           key: ${{ secrets.DEPLOY_KEY }}
           script: |
-            cd /root
-            source .bashrc
             cd /var/www/proyecto
             git pull origin master
             composer install
             php artisan migrate --force
             nvm use 20
-            yarn
-            yarn build
+            /root/.nvm/versions/node/v20.17.0/bin/yarn
+            /root/.nvm/versions/node/v20.17.0/bin/yarn build
             cd ../
             chown www-data:www-data proyecto -R
             supervisorctl restart all
