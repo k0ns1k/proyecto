@@ -84,6 +84,7 @@ jobs:
 
       - name: Deploy
         uses: appleboy/ssh-action@v1.0.3
+        if: github.ref == 'refs/heads/master'
         with:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
