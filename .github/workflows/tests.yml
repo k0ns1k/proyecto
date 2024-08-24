@@ -93,9 +93,8 @@ jobs:
             git pull origin master
             composer install
             php artisan migrate --force
-            nvm use 20
-            /root/.nvm/versions/node/v20.17.0/bin/yarn
-            /root/.nvm/versions/node/v20.17.0/bin/yarn build
+            yarn
+            yarn build
             cd ../
             chown www-data:www-data proyecto -R
             supervisorctl restart all
