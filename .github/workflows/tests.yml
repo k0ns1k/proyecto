@@ -93,6 +93,7 @@ jobs:
             git pull origin master
             composer install
             php artisan migrate --force
+            nvm use 20
             yarn
             yarn build
             cd ../
