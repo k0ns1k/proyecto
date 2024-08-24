@@ -88,4 +88,13 @@ jobs:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
           key: ${{ secrets.DEPLOY_KEY }}
-          script: whoami
+          script: |
+            cd /var/www/proyecto
+            git pull origin master
+            composer install
+            php artisan migrate --force
+            yarn
+            yarn build
+            cd ../
+            chown www-data:www-data proyecto -R
+            supervisorctl restart all
