@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands\Currencies;
 
-use App\Repositories\CMFRepository;
+use App\Jobs\Currencies\ExtractFromCMF;
 use Illuminate\Console\Command;
 
 class BaseCommand extends Command
@@ -43,13 +43,13 @@ class BaseCommand extends Command
             return $this::FAILURE;
         }
 
-        CMFRepository::fetchFinancialIndicator(
+        dispatch(new ExtractFromCMF(
             $api_key,
             $this->attributes['path'],
             $this->attributes['name'],
             $this->attributes['type'],
             $this->attributes['monthly']
-        );
+        ));
 
         $this->info("Finished GET {$this->attributes['name']} command...");
 
